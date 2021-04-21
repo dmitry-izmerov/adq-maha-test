@@ -1,4 +1,4 @@
-package adq.maha.test
+package adq.maha.test.controller
 
 import adq.maha.test.controller.PriceDto
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -25,14 +25,15 @@ class CheckoutControllerTest {
 
 	@Test
 	fun shouldReturnPrice() {
+		val request = listOf("001", "001", "001", "001", "001", "002", "002", "002", "002",)
 		mockMvc.perform(
 			post("/checkout")
 				.accept(APPLICATION_JSON)
 				.contentType(APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(listOf("001", "002")))
+				.content(objectMapper.writeValueAsString(request))
 		)
 		.andExpect(status().isOk)
-		.andExpect(content().json(objectMapper.writeValueAsString(PriceDto(100))))
+		.andExpect(content().json(objectMapper.writeValueAsString(PriceDto(1710))))
 		.andExpect(content().contentType(APPLICATION_JSON))
 	}
 }
